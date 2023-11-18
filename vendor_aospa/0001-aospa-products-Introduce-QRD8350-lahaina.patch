@@ -1,0 +1,136 @@
+From a5d6c651b7d2517de64f7357cc3888d68a0e4d4c Mon Sep 17 00:00:00 2001
+From: mujianwu <lrh15563910083@163.com>
+Date: Fri, 17 Nov 2023 18:34:47 +0800
+Subject: [PATCH] aospa: products: Introduce QRD8350 (lahaina)
+
+Change-Id: I0babacfbba3649cb6bbb6cd83b01c992f91dff0f
+Signed-off-by: mujianwu <lrh15563910083@163.com>
+Signed-off-by: snnbyyds <snnbyyds@gmail.com>
+---
+ products/AndroidProducts.mk         |  2 ++
+ products/lahaina/aospa.dependencies | 45 +++++++++++++++++++++++++++++
+ products/lahaina/aospa_lahaina.mk   | 40 +++++++++++++++++++++++++
+ 3 files changed, 87 insertions(+)
+ create mode 100644 products/lahaina/aospa.dependencies
+ create mode 100644 products/lahaina/aospa_lahaina.mk
+
+diff --git a/products/AndroidProducts.mk b/products/AndroidProducts.mk
+index 5d50016..6774030 100644
+--- a/products/AndroidProducts.mk
++++ b/products/AndroidProducts.mk
+@@ -25,6 +25,7 @@ PRODUCT_MAKEFILES += \
+     $(LOCAL_DIR)/davinci/aospa_davinci.mk \
+     $(LOCAL_DIR)/dubai/aospa_dubai.mk \
+     $(LOCAL_DIR)/juice/aospa_juice.mk \
++    $(LOCAL_DIR)/lahaina/aospa_lahaina.mk \
+     $(LOCAL_DIR)/lisa/aospa_lisa.mk \
+     $(LOCAL_DIR)/lmi/aospa_lmi.mk \
+     $(LOCAL_DIR)/lunaa/aospa_lunaa.mk \
+@@ -66,6 +67,7 @@ COMMON_LUNCH_CHOICES += \
+     aospa_davinci-userdebug \
+     aospa_dubai-userdebug \
+     aospa_juice-userdebug \
++    aospa_lahaina-userdebug \
+     aospa_lisa-userdebug \
+     aospa_lmi-userdebug \
+     aospa_lunaa-userdebug \
+diff --git a/products/lahaina/aospa.dependencies b/products/lahaina/aospa.dependencies
+new file mode 100644
+index 0000000..f7a5505
+--- /dev/null
++++ b/products/lahaina/aospa.dependencies
+@@ -0,0 +1,45 @@
++[
++    {
++        "remote":       "aospa",
++        "repository":   "AOSPA/android_hardware_qcom_audio",
++        "target_path":  "vendor/qcom/opensource/audio-hal/primary-hal",
++        "revision":     "uvite-888"
++    },
++    {
++        "remote":       "aospa",
++        "repository":   "AOSPA/android_hardware_qcom_display",
++        "target_path":  "hardware/qcom/display",
++        "revision":     "uvite-888"
++    },
++    {
++        "remote":       "aospa",
++        "repository":   "AOSPA/android_hardware_qcom_gps",
++        "target_path":  "hardware/qcom/gps",
++        "revision":     "uvite-legacy-component"
++    },
++    {
++        "remote":       "aospa",
++        "repository":   "AOSPA/android_hardware_qcom_media",
++        "target_path":  "hardware/qcom/media",
++        "revision":     "uvite-888"
++    },
++    {
++        "remote":       "aospa",
++        "repository":   "AOSPA/android_vendor_nxp_opensource_halimpl",
++        "target_path":  "vendor/nxp/opensource/halimpl",
++        "revision":     "uvite-SN100X-legacy"
++    },
++    {
++        "remote":       "aospa",
++        "repository":   "AOSPA/android_vendor_nxp_opensource_hidlimpl",
++        "target_path":  "vendor/nxp/opensource/hidlimpl",
++        "revision":     "uvite-SN100X-legacy"
++    },
++    {
++        "remote":       "blobs-gitlab",
++        "repository":   "android_prebuilts_clang-standalone",
++        "target_path":  "prebuilts/clang-standalone",
++        "revision":     "17",
++        "clone-depth":  "1"
++    }
++]
+diff --git a/products/lahaina/aospa_lahaina.mk b/products/lahaina/aospa_lahaina.mk
+new file mode 100644
+index 0000000..3173c4a
+--- /dev/null
++++ b/products/lahaina/aospa_lahaina.mk
+@@ -0,0 +1,40 @@
++#
++# Copyright (C) 2023 Paranoid Android
++#
++# SPDX-License-Identifier: Apache-2.0
++#
++
++ifeq (aospa_lahaina,$(TARGET_PRODUCT))
++
++# Inherit from those products. Most specific first.
++$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
++$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
++
++# Inherit from the custom device configuration.
++$(call inherit-product, device/qcom/lahaina/lahaina.mk)
++
++# Inherit from the AOSPA configuration.
++$(call inherit-product, vendor/aospa/target/product/aospa-target.mk)
++
++PRODUCT_DEVICE := lahaina
++PRODUCT_NAME := aospa_lahaina
++PRODUCT_BRAND := qti
++PRODUCT_MODEL := Lahaina for arm64
++PRODUCT_MANUFACTURER := QUALCOMM
++
++PRODUCT_SYSTEM_NAME := lahaina
++PRODUCT_SYSTEM_DEVICE := lahaina
++
++PRODUCT_BUILD_PROP_OVERRIDES += \
++    TARGET_DEVICE=$(PRODUCT_SYSTEM_DEVICE) \
++    TARGET_PRODUCT=$(PRODUCT_SYSTEM_NAME)
++
++PRODUCT_GMS_CLIENTID_BASE := android-qualcomm
++
++# Boot animation resolution.
++TARGET_BOOT_ANIMATION_RES := 1080
++
++# BUILDTYPE
++AOSPA_BUILDTYPE := BETA
++
++endif
+-- 
+2.43.0
+
