@@ -1,0 +1,177 @@
+From 6e96f28187d53a040aa198b6ad10ea0e9ad7c21b Mon Sep 17 00:00:00 2001
+From: EdwardWu <bluehome.wu@gmail.com>
+Date: Wed, 29 Nov 2023 05:42:36 +0800
+Subject: [PATCH 3/3] apn: Update Taiwan Carrier TW Mobile (TWM)
+
+ref[1]: https://android.googlesource.com/device/sample/+/main/etc/apns-full-conf.xml
+ref[2]: https://en.wikipedia.org/wiki/Mobile_network_codes_in_ITU_region_4xx_(Asia)#Taiwan_%E2%80%93_TW
+
+Change-Id: I3206903ff320223607aaad35866d43f03842c602
+Signed-off-by: EdwardWu <bluehome.wu@gmail.com>
+---
+ target/config/apns-conf.xml | 112 ++++++++++++++----------------------
+ 1 file changed, 44 insertions(+), 68 deletions(-)
+
+diff --git a/target/config/apns-conf.xml b/target/config/apns-conf.xml
+index 98542b8..7534a37 100644
+--- a/target/config/apns-conf.xml
++++ b/target/config/apns-conf.xml
+@@ -25211,21 +25211,6 @@
+       type="ims"
+       protocol="IPV4V6"
+   />
+-  <apn carrier="和信電訊(KGT-Online) (Internet)"
+-      mcc="466"
+-      mnc="88"
+-      apn="internet"
+-      type="default,supl"
+-  />
+-  <apn carrier="和信電訊(KGT-Online) (MMS)"
+-      mcc="466"
+-      mnc="88"
+-      apn="kgtmms"
+-      mmsc="http://mms.kgtmms.net.tw/mms/wapenc"
+-      mmsproxy="172.28.33.5"
+-      mmsport="8080"
+-      type="mms"
+-  />
+   <apn carrier="T Star-internet"
+       mcc="466"
+       mnc="89"
+@@ -25293,89 +25278,80 @@
+       type="ims"
+       protocol="IP"
+   />
+-  <apn carrier="Mobitai MMS"
+-      apn="gprs1"
+-      mcc="466"
+-      mnc="93"
+-      user="gprs"
+-      server=""
+-      password="gprs"
+-      proxy=""
+-      port=""
+-      mmsproxy="192.168.77.5"
+-      mmsport="80"
+-      mmsc="http://mms.mobeelife.net/mms/wapenc"
+-      type="mms"
+-  />
+   <apn carrier="台灣大哥大(TW Mobile) (Internet)"
++      carrier_id="1888"
+       mcc="466"
+-      mnc="93"
++      mnc="97"
+       apn="Internet"
+       type="default,supl"
+-  />
+-  <apn carrier="台灣大哥大(TW Mobile) (twm)"
+-      mcc="466"
+-      mnc="93"
+-      apn="TWM"
+-      type="default,supl"
+-  />
++      protocol="IPV4V6" />
+   <apn carrier="台灣大哥大(TW Mobile) (MMS)"
++      carrier_id="1888"
+       mcc="466"
+-      mnc="93"
+-      apn="MMS"
+-      mmsc="http://mms.catch.net.tw"
++      mnc="97"
++      apn="mms"
++      proxy="10.1.1.2"
++      port="80"
+       mmsproxy="10.1.1.2"
+       mmsport="80"
++      mmsc="http://mms.catch.net.tw"
+       type="mms"
++      protocol="IPV4V6"
+   />
+-  <apn carrier="台灣大哥大(TW Mobile) (Internet)"
++  <apn carrier="台灣大哥大(TW Mobile) (IMS)"
++      carrier_id="1888"
+       mcc="466"
+       mnc="97"
+-      apn="Internet"
+-      type="default,supl"
++      apn="ims"
++      type="ims"
++      protocol="IPV6"
++      roaming_protocol="IPV6"
++      user_visible="false"
+   />
+-  <apn carrier="台灣大哥大(TW Mobile) (twm)"
++  <apn carrier="台灣大哥大(TW Mobile) (UT)"
++      carrier_id="1888"
+       mcc="466"
+       mnc="97"
+-      apn="TWM"
+-      type="default,supl"
++      apn="hos"
++      type="xcap"
++      user_visible="false"
++  />
++  <apn carrier="台灣大哥大(TW Mobile) (Internet)"
++      carrier_id="1888"
++      mcc="466"
++      mnc="99"
++      apn="Internet"
++      type="default,ia,supl"
++      protocol="IPV4V6"
+   />
+   <apn carrier="台灣大哥大(TW Mobile) (MMS)"
++      carrier_id="1888"
+       mcc="466"
+-      mnc="97"
++      mnc="99"
+       apn="MMS"
+       mmsc="http://mms.catch.net.tw"
+       mmsproxy="10.1.1.2"
+       mmsport="80"
+       type="mms"
++      protocol="IPV4V6"
+   />
+-  <apn carrier="IMS"
++  <apn carrier="台灣大哥大(TW Mobile) (IMS)"
++      carrier_id = "1889"
+       mcc="466"
+-      mnc="97"
++      mnc="99"
+       apn="ims"
+       type="ims"
+-      protocol="IP"
+-  />
+-  <apn carrier="台灣大哥大(TW Mobile) (Internet)"
+-      mcc="466"
+-      mnc="99"
+-      apn="Internet"
+-      type="default,supl"
+-  />
+-  <apn carrier="台灣大哥大(TW Mobile) (twm)"
+-      mcc="466"
+-      mnc="99"
+-      apn="TWM"
+-      type="default,supl"
++      protocol="IPV6"
++      roaming_protocol="IPV6"
++      user_visible="false"
+   />
+-  <apn carrier="台灣大哥大(TW Mobile) (MMS)"
++  <apn carrier="台灣大哥大(TW Mobile) (UT)"
++      carrier_id="1889"
+       mcc="466"
+       mnc="99"
+-      apn="mms"
+-      mmsc="http://mms.catch.net.tw"
+-      mmsproxy="10.1.1.2"
+-      mmsport="80"
+-      type="mms"
++      apn="hos"
++      type="xcap"
++      user_visible="false"
+   />
+   <apn carrier="Airtel BD"
+       mcc="470"
+-- 
+2.34.1
+
