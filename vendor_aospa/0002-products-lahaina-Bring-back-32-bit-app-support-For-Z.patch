@@ -1,0 +1,28 @@
+From fec54e3072d5537340569dd4c385fe84996e39c9 Mon Sep 17 00:00:00 2001
+From: snnbyyds <snnbyyds@gmail.com>
+Date: Fri, 29 Dec 2023 22:29:26 +0800
+Subject: [PATCH 2/2] products: lahaina: Bring back 32 bit app support For
+ ZhiXue APP.
+
+Change-Id: I77068a8036f80b1d58d748a54270764912fad49c
+Signed-off-by: mujianwu <lrh15563910083@163.com>
+---
+ products/lahaina/aospa_lahaina.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/products/lahaina/aospa_lahaina.mk b/products/lahaina/aospa_lahaina.mk
+index 66d3ba0..4634497 100644
+--- a/products/lahaina/aospa_lahaina.mk
++++ b/products/lahaina/aospa_lahaina.mk
+@@ -7,7 +7,7 @@
+ ifeq (aospa_lahaina,$(TARGET_PRODUCT))
+ 
+ # Inherit from those products. Most specific first.
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
++$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+ 
+ # Inherit from the device configuration.
+-- 
+2.43.0
+
