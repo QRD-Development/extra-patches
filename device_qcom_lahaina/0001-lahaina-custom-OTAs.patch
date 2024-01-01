@@ -1,0 +1,92 @@
+From 86bf3718fbc92397fbef271d8f083cb90e80ced1 Mon Sep 17 00:00:00 2001
+From: Omkar Chandorkar <gotenksIN@aospa.co>
+Date: Sun, 21 May 2023 22:26:00 +0900
+Subject: [PATCH] lahaina: custom OTAs
+
+Change-Id: I9e76e17b0aeadc44588f4d480fb8d24543c092df
+Signed-off-by: Omkar Chandorkar <gotenksIN@aospa.co>
+[Dark-Matter7232: adjust for our needs]
+Signed-off-by: Dark-Matter7232 <me@const.eu.org>
+
+[snnbyyds: adjust for our needs]
+Signed-off-by: mujianwu <lrh15563910083@163.com>
+---
+ lahaina.mk                                        |  5 +++++
+ overlay/ParanoidHubOverlay/Android.bp             |  9 +++++++++
+ overlay/ParanoidHubOverlay/AndroidManifest.xml    | 13 +++++++++++++
+ overlay/ParanoidHubOverlay/res/values/strings.xml | 11 +++++++++++
+ 4 files changed, 38 insertions(+)
+ create mode 100644 overlay/ParanoidHubOverlay/Android.bp
+ create mode 100644 overlay/ParanoidHubOverlay/AndroidManifest.xml
+ create mode 100644 overlay/ParanoidHubOverlay/res/values/strings.xml
+
+diff --git a/lahaina.mk b/lahaina.mk
+index d4a9319..c426918 100644
+--- a/lahaina.mk
++++ b/lahaina.mk
+@@ -189,6 +189,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+ PRODUCT_PACKAGES += \
+     vendor.qti.hardware.systemhelper@1.0.vendor
+ 
++# Updater
++PRODUCT_PACKAGES += \
++    ParanoidHub \
++    ParanoidHubOverlay
++
+ # Vendor
+ $(call inherit-product, vendor/qcom/qrd/lahaina/lahaina-vendor.mk)
+ 
+diff --git a/overlay/ParanoidHubOverlay/Android.bp b/overlay/ParanoidHubOverlay/Android.bp
+new file mode 100644
+index 0000000..7314d28
+--- /dev/null
++++ b/overlay/ParanoidHubOverlay/Android.bp
+@@ -0,0 +1,9 @@
++//
++// Copyright (C) 2024 Paranoid Android
++// SPDX-License-Identifier: Apache-2.0
++//
++
++runtime_resource_overlay {
++    name: "ParanoidHubOverlay",
++    product_specific: true,
++}
+diff --git a/overlay/ParanoidHubOverlay/AndroidManifest.xml b/overlay/ParanoidHubOverlay/AndroidManifest.xml
+new file mode 100644
+index 0000000..d8a31f8
+--- /dev/null
++++ b/overlay/ParanoidHubOverlay/AndroidManifest.xml
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     Copyright (C) 2024 Paranoid Android
++     SPDX-License-Identifier: Apache-2.0
++-->
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="co.aospa.hub.lahaina">
++
++    <overlay
++        android:isStatic="true"
++        android:priority="800"
++        android:targetPackage="co.aospa.hub" />
++</manifest>
+diff --git a/overlay/ParanoidHubOverlay/res/values/strings.xml b/overlay/ParanoidHubOverlay/res/values/strings.xml
+new file mode 100644
+index 0000000..5e4bba8
+--- /dev/null
++++ b/overlay/ParanoidHubOverlay/res/values/strings.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     Copyright (C) 2022 Paranoid Android
++     SPDX-License-Identifier: Apache-2.0
++-->
++<resources>
++
++    <!-- The server that hosts the update files -->
++    <string name="system_update_server_url" translatable="false">"https://raw.githubusercontent.com/snnbyyds/ota/master/"</string>
++
++</resources>
+-- 
+2.34.1
+
